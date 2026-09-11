@@ -1,0 +1,9 @@
+tmp/
+output/
+submission/
+.playwright-cli/
+.claude/
+.vercel-project.json
+__pycache__/
+*.bak
+*.stackdump
