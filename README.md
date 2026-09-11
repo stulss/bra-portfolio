@@ -2,7 +2,7 @@
 
 BR-A 개인 소개 사이트와 결정론적 기록 갱신 장치. Python 3.11 이상, 외부 패키지·API 키 없이 실행합니다.
 
-**공개 사이트: https://hongjuhyung.vercel.app** (현재는 작성자 검토용 초안 배너가 붙어 있습니다.)
+**공개 사이트: https://hongjuhyung.vercel.app** · **소스: https://github.com/stulss/bra-portfolio** (현재는 작성자 검토용 초안 배너가 붙어 있습니다.)
 
 ## 새 폴더에서 실행하는 세 단계
 1. 장치 ZIP을 새 폴더에 풀고 그 폴더에서 터미널을 엽니다.
