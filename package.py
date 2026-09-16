@@ -6,7 +6,7 @@ from build import ROOT, build
 
 def package() -> Path:
     build(ROOT / 'input', ROOT / 'preview')
-    files = ['README.md', 'build.py', 'test_build.py', 'package.py', 'template.html', 'style.css']
+    files = ['README.md', 'build.py', 'notion_sync.py', 'test_build.py', 'package.py', 'template.html', 'style.css']
     files += [f'input/{name}' for name in ('profile.json', 'ritual.json', 'attendance.json', 'tasks.json', 'paper.md')]
     files += [f'preview/{name}' for name in ('index.html', 'style.css', 'documents.html', 'paper.html', 'metrics.json', 'candidates.json')]
     dest = ROOT / 'submission' / 'device.zip'

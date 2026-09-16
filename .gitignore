@@ -4,6 +4,14 @@ submission/
 .playwright-cli/
 .claude/
 .vercel-project.json
+.vercel/
+.vercel-static/
+/preview/candidates.json
 __pycache__/
+.env
+.env.*
 *.bak
 *.stackdump
+
+# 개인정보가 포함된 비공개 참고 원본
+/docs/피텍 채용지원서.pdf
