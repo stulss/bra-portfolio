@@ -1,6 +1,7 @@
 tmp/
 output/
-submission/
+submission/*
+!submission/device.zip
 .playwright-cli/
 .claude/
 .vercel-project.json
