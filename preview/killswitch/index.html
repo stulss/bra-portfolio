@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>섀도우 킬스위치 — API 과다응답 진단</title>
+<meta name="description" content="화면엔 안 보여도 JSON으로 새어나오는 민감정보·BOLA 노출을 탐지하고, 논문이 검증한 강도로 배포 킬스위치 판정문을 만든다.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<main class="wrap">
+
+  <!-- 첫 화면: 논문 제목 + 누구를 어떻게 돕는가 한 문장 -->
+  <header class="hero">
+    <div class="kicker">과제10 논문을 실제로 쓰는 앱 · 정보보안</div>
+    <h1>섀도우 킬스위치</h1>
+    <p class="paper">기반 논문: 「프롬프트로 만든 킬스위치는 언제 무너지는가」 · 홍주형 · 2026-09-10</p>
+    <p class="lede">
+      화면엔 안 보여도 API 응답(JSON)으로 새어나오는 민감정보·과다응답·BOLA 노출을 찾아내,
+      <b>배포를 실제로 멈추는 강도</b>의 차단 판정문을 만들어 주는 백엔드 개발자·QA용 진단 도구입니다.
+      <small>논문 결과 적용: 약한 중단 지시는 무너지고, <b>금지 대상을 명시한 강한 지시(A3)만 실제로 멈춥니다.</b> 이 앱은 그 A3 강도를 기본 판정으로 씁니다.</small>
+    </p>
+  </header>
+
+  <!-- 설명 없이 써 볼 수 있게: 3단계 -->
+  <section class="howto">
+    <div class="step"><span class="n">1</span>API 응답 JSON을 아래에 붙여넣기 (또는 예시 버튼)</div>
+    <div class="step"><span class="n">2</span>‘진단’ 누르면 새어나온 필드를 표로 보여줍니다</div>
+    <div class="step"><span class="n">3</span>논문 강도(A1/A2/A3)로 배포 차단 판정문 생성</div>
+  </section>
+
+  <section class="grid">
+    <div class="card">
+      <h2>일반 사용자 API 응답 (필수)</h2>
+      <label class="small" for="userJson">GET /api/... 의 JSON 응답을 붙여넣으세요</label>
+      <textarea id="userJson" spellcheck="false" placeholder='{ "id": 1, "name": "홍길동", ... }'></textarea>
+      <div class="samples">
+        <button data-sample="leak">예시: 민감정보 새는 응답</button>
+        <button data-sample="bola">예시: BOLA 노출 목록</button>
+        <button data-sample="clean">예시: 깨끗한 응답</button>
+        <button data-sample="bad">예시: 깨진 JSON</button>
+      </div>
+    </div>
+    <div class="card">
+      <h2>관리자 API 응답 (선택 — 구조 혼선 비교)</h2>
+      <label class="small" for="adminJson">있으면 붙여넣으세요. 일반 응답에 관리자 전용 필드가 섞였는지 함께 봅니다.</label>
+      <textarea id="adminJson" spellcheck="false" placeholder="(비워 두어도 됩니다)"></textarea>
+    </div>
+  </section>
+
+  <div class="controls">
+    <button id="scanBtn" class="btn primary">응답 진단하기</button>
+    <div class="strength">
+      <span>차단 강도(논문 요인 A):</span>
+      <select id="level">
+        <option value="A1">A1 · 약한 권고 (논문: 무너짐)</option>
+        <option value="A2">A2 · "지금 중단하라" (논문: 절반 붕괴)</option>
+        <option value="A3" selected>A3 · 금지 대상 명시 (논문: 실제로 멈춤) — 기본</option>
+      </select>
+    </div>
+  </div>
+  <div class="error" id="error"></div>
+
+  <section id="output" hidden>
+    <div id="verdict" class="verdict"></div>
+    <p class="exit" id="exit"></p>
+    <div class="findings" id="findings"></div>
+  </section>
+
+  <!-- 논문 근거를 앱 안에서 보여준다: 이 앱이 논문 결과를 실제로 쓴다는 증거 -->
+  <section class="evidence-panel card">
+    <h2>이 판정이 근거로 삼은 논문 결과</h2>
+    <div id="levels"></div>
+    <table id="stats"></table>
+    <p class="paperNote" id="antipattern" style="font-size:13px;color:var(--muted);margin-top:10px"></p>
+  </section>
+
+  <footer>
+    로컬에서 완전히 동작하는 클라이언트 사이드 도구입니다. 붙여넣은 데이터는 브라우저 밖으로 전송되지 않습니다.
+    · 근거 논문: 과제10 「프롬프트로 만든 킬스위치는 언제 무너지는가」
+  </footer>
+</main>
+
+<script src="paper-data.js"></script>
+<script src="detectors.js"></script>
+<script src="killswitch.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
